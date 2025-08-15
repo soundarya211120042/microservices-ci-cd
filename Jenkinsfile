@@ -7,25 +7,10 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/soundarya211120042/microservices-ci-cd.git', credentialsId: 'git_pat'
-
-            }
-        }
-
         stage('Build Docker Images') {
             steps {
                 script {
-                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} build"
-                }
-            }
-        }
-
-        stage('Deploy Containers') {
-            steps {
-                script {
-                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} up -d"
+                    sh "docker-compose -f docker-compose.yml up --build -d"
                 }
             }
         }
@@ -34,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Simple check if containers are running
-                    sh "docker ps"
+                    sh "docker-compose ps -a"
                 }
             }
         }
