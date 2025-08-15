@@ -9,7 +9,8 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/username/your-microservices-repo.git'
+                git branch: 'main', url: 'https://github.com/soundarya211120042/microservices-ci-cd.git', credentialsId: 'github-pat'
+
             }
         }
 
